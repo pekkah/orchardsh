@@ -1,0 +1,11 @@
+﻿name: SyntaxHighlighter
+antiforgery: enabled
+author: Pekka Heikura
+website: http://www.heikura.info
+version: 0.1.0
+orchardversion: 0.8.0
+description: Uses http://alexgorbatchev.com/SyntaxHighlighter/ to highlight code snippets in pages.
+features:
+    Heikura.Orchard.SyntaxHighlighter:
+        Description: SyntaxHighlighter
+        Category: Content
