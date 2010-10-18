@@ -2,7 +2,7 @@
 using Orchard.Mvc.Filters;
 using Orchard.UI.Resources;
 
-namespace Heikura.Orchard.SyntaxHighlighter.Filters
+namespace Heikura.Orchard.Modules.SyntaxHighlighter.Filters
 {
     public class SyntaxHighlighterFilter : FilterProvider, IResultFilter {
         private readonly IResourceManager _resourceManager;

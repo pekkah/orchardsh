@@ -1,9 +1,9 @@
 using Orchard.UI.Resources;
 
-namespace Heikura.Orchard.SyntaxHighlighter
+namespace Heikura.Orchard.Modules.SyntaxHighlighter
 {
     public class ResourceManifest : IResourceManifestProvider {
-        public const string NamePrefix = "SH";
+        public const string NamePrefix = "sh_";
 
         public const string CoreScript = NamePrefix + "script_core";
         public const string CoreStyle = NamePrefix + "style_core";
