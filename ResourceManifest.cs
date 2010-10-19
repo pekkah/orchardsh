@@ -8,6 +8,9 @@ namespace Heikura.Orchard.Modules.SyntaxHighlighter
         public const string CoreScript = NamePrefix + "script_core";
         public const string CoreStyle = NamePrefix + "style_core";
 
+        public const string ShAutoloaderScript = NamePrefix + "script_shloader";
+        public const string AutoloaderScript = NamePrefix + "script_loader";
+
         // brushes
         public const string BrushCSharp = NamePrefix + "brush_csharp";
         public const string BrushJScript = NamePrefix + "brush_jscript";
@@ -19,7 +22,9 @@ namespace Heikura.Orchard.Modules.SyntaxHighlighter
             var manifest = builder.Add();
 
             // core scripts
+            manifest.DefineScript(AutoloaderScript).SetUrl("autoloader.js");
             manifest.DefineScript(CoreScript).SetUrl("shCore.js");
+            manifest.DefineScript(ShAutoloaderScript).SetUrl("shAutoloader.js");
 
             // define brush scripts 
             // TODO (pekkah): Define a admin UI for configuring which brushes are included

@@ -79,7 +79,7 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\activateSh.js" />
+    <Content Include="Scripts\autoloader.js" />
     <Content Include="Scripts\shAutoloader.js" />
     <Content Include="Scripts\shBrushAppleScript.js" />
     <Content Include="Scripts\shBrushAS3.js" />
