@@ -1,12 +1,12 @@
-﻿Name: Heikura.SyntaxHighlighter
+﻿Name: Syntax Highlighter for Orchard
 AntiForgery: enabled
 Author: Pekka Heikura
 Website: http://orchardsh.codeplex.com
-Version: 0.6.0
+Version: 0.6.1
 OrchardVersion: 0.8.0
 Description: Contains Syntax Highlighter javascript and style files. Uses javascript based syntax highlighter library from http://alexgorbatchev.com/SyntaxHighlighter/ written by Alex Gorbatchev.
 Features:
     Heikura.Orchard.Modules.SyntaxHighlighter:
-        Name: Syntax Highlighter result filter
+        Name: Syntax Highlighter filter
         Description: Automatically highlights formatted code snippets.
         Category: Syntactic Sugar
