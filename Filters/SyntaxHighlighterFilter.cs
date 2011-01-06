@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Heikura.Orchard.Modules.SyntaxHighlighter.Services;
 using Orchard.Mvc.Filters;
 using Orchard.UI.Resources;
 
@@ -6,9 +7,11 @@ namespace Heikura.Orchard.Modules.SyntaxHighlighter.Filters
 {
     public class SyntaxHighlighterFilter : FilterProvider, IResultFilter {
         private readonly IResourceManager _resourceManager;
+        private readonly ISyntaxHighlighterService _syntaxHighlighterService;
 
-        public SyntaxHighlighterFilter(IResourceManager resourceManager) {
+        public SyntaxHighlighterFilter(IResourceManager resourceManager, ISyntaxHighlighterService syntaxHighlighterService) {
             _resourceManager = resourceManager;
+            _syntaxHighlighterService = syntaxHighlighterService;
         }
 
         public void OnResultExecuting(ResultExecutingContext filterContext) {
@@ -19,7 +22,8 @@ namespace Heikura.Orchard.Modules.SyntaxHighlighter.Filters
             _resourceManager.Require("stylesheet", ResourceManifest.CoreStyle).AtHead();
 
             // todo: (pekkah) read the theme from configuration (needs a UI)
-            _resourceManager.Require("stylesheet", ResourceManifest.ThemeDefault).AtHead();
+            var currentTheme = _syntaxHighlighterService.GetCurrentTheme();
+            _resourceManager.Require("stylesheet", currentTheme).AtHead();
             
             var coreScriptRequire = _resourceManager.Require("script", ResourceManifest.CoreScript).AtHead();
             _resourceManager.Require("script", ResourceManifest.ShAutoloaderScript).AtHead();
@@ -32,7 +36,7 @@ namespace Heikura.Orchard.Modules.SyntaxHighlighter.Filters
 
             // this will activate syntax highlighter using shAutoloader to dynamically load needed brushes.
             _resourceManager.RegisterFootScript(
-                "<script type=\"text/javascript\">autoloadSh('$scripts$')</script>".Replace("$scripts$", 
+                "<script type=\"text/javascript\">syntaxHighlight('$scripts$')</script>".Replace("$scripts$", 
                 coreScriptPath));
         }
 

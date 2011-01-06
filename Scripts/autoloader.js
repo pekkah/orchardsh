@@ -9,7 +9,7 @@
     return result
 };
 
-function autoloadSh(scriptLocation) {
+function syntaxHighlight(scriptLocation) {
     SyntaxHighlighter.autoloader.apply(null, path(scriptLocation,
       'applescript            @@shBrushAppleScript.js',
       'actionscript3 as3      @@shBrushAS3.js',
