@@ -5,7 +5,6 @@ using Orchard.Mvc.Filters;
 using Orchard.UI.Resources;
 
 namespace Heikura.Orchard.Modules.SyntaxHighlighter.Filters {
-    [OrchardFeature("Heikura.SyntaxHighlighter.ResultFilter")]
     public class SyntaxHighlighterFilter : FilterProvider, IResultFilter {
         private readonly IResourceManager _resourceManager;
         private readonly ISyntaxHighlighterService _syntaxHighlighterService;
