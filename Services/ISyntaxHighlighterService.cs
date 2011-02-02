@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Heikura.Orchard.Modules.SyntaxHighlighter.Models;
 using Heikura.Orchard.Modules.SyntaxHighlighter.Records;
 using Orchard;
-using Orchard.ContentManagement;
 using Orchard.Data;
+using Orchard.Localization;
+using Orchard.UI.Notify;
 
 namespace Heikura.Orchard.Modules.SyntaxHighlighter.Services
 {
@@ -15,49 +15,69 @@ namespace Heikura.Orchard.Modules.SyntaxHighlighter.Services
         string GetCurrentTheme();
     }
 
-    public class SyntaxHighlighterService : ISyntaxHighlighterService
-    {
-        private readonly IRepository<SyntaxHighlighterSettingsRecord> _repository;
+    public class SyntaxHighlighterService : ISyntaxHighlighterService {
+        private readonly IRepository<SettingsRecord> _repository;
+        private readonly IRepository<ThemeRecord> _themeRepository;
+        private readonly IOrchardServices _services;
 
-        public SyntaxHighlighterService(IRepository<SyntaxHighlighterSettingsRecord> repository) {
+        public SyntaxHighlighterService(IRepository<SettingsRecord> repository, IRepository<ThemeRecord> themeRepository, IOrchardServices services) {
             _repository = repository;
+            _themeRepository = themeRepository;
+            _services = services;
+            T = NullLocalizer.Instance;
+        }
+
+        public Localizer T {
+            get;
+            set;
         }
 
         public IEnumerable<string> GetSupportedThemes() {
-            // todo (pekka): maybe these could be loaded by using Directory?
-            var themes = new List<string>() {
-                "shThemeDefault.css",
-                "shThemeDjango.css",
-                "shThemeEclipse.css",
-                "shThemeEmacs.css",
-                "shThemeFadeToGrey.css",
-                "shThemeMDUltra.css",
-                "shThemeMidnight.css",
-                "shThemeRDark.css"
-            };
+
+            var themes = new List<string>();
+            try {
+                var themesFromDatabase = _themeRepository.Table.Take(20);
+
+                themes.AddRange(themesFromDatabase.Select(t => t.ThemeName));
+            }
+            catch (Exception) {
+                themes.Add("shThemeDefault.css");
+            }
 
             return themes;
         }
 
         public void SetCurrentTheme(string themeName) {
-            var current = _repository.Table.SingleOrDefault();
+            try {
+                var current = _repository.Table.SingleOrDefault();
 
-            if (current == null) {
-                current = new SyntaxHighlighterSettingsRecord();
-                _repository.Create(current);
+                if (current == null) {
+                    current = new SettingsRecord();
+                    _repository.Create(current);
+                }
+
+                current.CurrentThemeName = themeName;
+
             }
-
-            current.CurrentThemeName = themeName;
+            catch {
+                _services.Notifier.Add(NotifyType.Warning, T("There is problem setting current syntax highlighter theme in database. Try reinstalling the module."));
+            }
         }
 
-        public string GetCurrentTheme() {
-            var current = _repository.Table.SingleOrDefault();
 
-            if (current == null) {
+        public string GetCurrentTheme() {
+            try {
+                var current = _repository.Table.SingleOrDefault();
+
+                if (current == null) {
+                    return "shThemeDefault.css";
+                }
+
+                return current.CurrentThemeName;
+            }
+            catch {
                 return "shThemeDefault.css";
             }
-
-            return current.CurrentThemeName;
         }
     }
 }
