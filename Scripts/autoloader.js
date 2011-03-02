@@ -28,6 +28,7 @@ function syntaxHighlight(scriptLocation) {
       'perl pl                @@shBrushPerl.js',
       'php                    @@shBrushPhp.js',
       'text plain             @@shBrushPlain.js',
+      'ps powershell          @@shBrushPowerShell.js',
       'py python              @@shBrushPython.js',
       'ruby rails ror rb      @@shBrushRuby.js',
       'sass scss              @@shBrushSass.js',
