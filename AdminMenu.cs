@@ -14,16 +14,11 @@ namespace Heikura.Orchard.Modules.SyntaxHighlighter {
         }
 
         public void GetNavigation(NavigationBuilder builder) {
-            builder.Add(T("Themes"), BuildMenu);
-        }
-
-        private void BuildMenu(NavigationItemBuilder menu) {
-            menu.Add(T("Syntax Highlighter"), "0",
-                     item =>
-                     item.Action("ChangeTheme", "Admin", new
-                     {
-                         area = "Heikura.SyntaxHighlighter"
-                     }).Permission(Permissions.ApplyTheme));
+            builder.Add(T("Themes"), menu => menu.Add(T("Syntax Highlighter"), "100",
+                     item => item.Action("ChangeTheme", "Admin", 
+                         new {
+                             area = "Heikura.SyntaxHighlighter"
+                         }).LocalNav().Permission(Permissions.ApplyTheme)));
         }
     }
 }
