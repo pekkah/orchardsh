@@ -2,8 +2,8 @@
 AntiForgery: enabled
 Author: Pekka Heikura
 Website: http://orchardsh.codeplex.com
-Version: 1.0.2
-OrchardVersion: 1.0.0
+Version: 1.2.41
+OrchardVersion: 1.2.41
 Description: Contains Syntax Highlighter javascript and style files. Uses javascript based syntax highlighter library from http://alexgorbatchev.com/SyntaxHighlighter/ written by Alex Gorbatchev.
 Features:
     Heikura.SyntaxHighlighter:
